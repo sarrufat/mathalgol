@@ -103,6 +103,12 @@ func NumberOfDivisors(n int64) (numd int, pfs map[uint]int) {
 // FutureNumDiv result
 type FutureNumDiv chan *NumDivElement
 
+//Element class
+type NumDivElement struct {
+	Num    int64
+	NumDiv int
+}
+
 /* AsyncNumberOfDivisors version NumberOfDivisors
 func AsyncNumberOfDivisors(n int64, fut FutureNumDiv) {
 
@@ -181,7 +187,6 @@ func ParallelHighlyComposite(top int64, handler func(idx int, max int64, numd in
 	dmap := make(divMap)
 	fchan := make(FutureNumDiv, numCores)
 
-	//	stack := NewStack()
 	var wchan sync.WaitGroup
 
 	// var workers []func()
