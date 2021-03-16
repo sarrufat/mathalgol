@@ -32,7 +32,7 @@ func main() {
 	handler(1, 1)
 	if *parBool {
 		divisors.ParallelHighlyComposite(*nValue, parHandler)
-		fmt.Printf("#discards %d\n", divisors.AtomicDiscards)
+		fmt.Printf("#discards %d, #discards2 %d, #discards3 %d\n", divisors.AtomicDiscards, divisors.AtomicDiscards2, divisors.AtomicDiscards3)
 	} else {
 		divisors.HighlyComposite(*nValue, handler)
 	}

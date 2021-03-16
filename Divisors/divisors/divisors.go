@@ -31,9 +31,11 @@ func genArrayOfPrimes(n int64) []uint {
 }
 
 var (
-	cachedPrimes   = []uint{}
-	gemArrayMutex  sync.Mutex
-	AtomicDiscards = int64(0)
+	cachedPrimes    = []uint{}
+	gemArrayMutex   sync.Mutex
+	AtomicDiscards  = int64(0)
+	AtomicDiscards2 = int64(0)
+	AtomicDiscards3 = int64(0)
 )
 
 func initCachePrimes(n int64) {
@@ -203,6 +205,8 @@ func ParallelHighlyComposite(top int64, handler func(idx int, max int64, numd in
 			if !exists || n.Num < currv.Num {
 				dmap[n.NumDiv] = *n
 				//	log.Println(n)
+			} else {
+				atomic.AddInt64(&AtomicDiscards2, int64(1))
 			}
 		}
 
@@ -230,6 +234,8 @@ func ParallelHighlyComposite(top int64, handler func(idx int, max int64, numd in
 			handler(idx, ele.Num, ele.NumDiv)
 			idx++
 			maxDiv = ele.NumDiv
+		} else {
+			AtomicDiscards3++
 		}
 
 	}
